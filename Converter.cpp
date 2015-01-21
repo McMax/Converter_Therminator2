@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 {
 	//TODO: Add probability weights switch
 	
-	bool weighting = false;
+	bool weighting = true;
 	Double_t random_weight;
 	TRandom2 *randGen;
 	TDatime time;
@@ -117,9 +117,9 @@ int main(int argc, char **argv)
 		{
 			ptree->GetEntry(j);
 			if(particle.pid>0)
-				particletree.AddParticle(1,particle.px,particle.py,particle.pz);
+				particletree.AddParticle(1,0,0,particle.px,particle.py,particle.pz,0,0,0,0,0,0,0,0,particle.mass);
 			else if(particle.pid<0)
-				particletree.AddParticle(-1,particle.px,particle.py,particle.pz);
+				particletree.AddParticle(-1,0,0,particle.px,particle.py,particle.pz,0,0,0,0,0,0,0,0,particle.mass);
 		}
 		part_iter += event.entries;
 
