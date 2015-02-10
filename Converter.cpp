@@ -32,7 +32,6 @@ int main(int argc, char **argv)
 	//TODO: Add probability weights switch
 	
 	bool weighting = true;
-	Double_t random_weight;
 	TRandom2 *randGen;
 	TDatime time;
 	TH1D* cum_distr;
@@ -110,6 +109,9 @@ int main(int argc, char **argv)
 		}
 		else
 			eventtree->GetEntry(i);
+
+		if(event.entries <= 2)
+			continue;			//Pi wall effect cut
 
 		particletree.BeginEvent();
 
