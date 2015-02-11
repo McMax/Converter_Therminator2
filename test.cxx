@@ -55,7 +55,7 @@ int test()
 			px->Fill(particle.px);
 			py->Fill(particle.py);
 			pz->Fill(particle.pz);
-			//cout << "PID: " << particle.pid << " mass: " << particle.mass << " px=" << particle.px << " py=" << particle.py << " pz=" << particle.pz << endl;
+			cout << "PID: " << particle.pid << endl;
 		}
 		
 		part_iter += event.entries;

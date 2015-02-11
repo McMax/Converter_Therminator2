@@ -1,6 +1,7 @@
 #include "ParticleTree.h"
 #include "TRandom2.h"
 #include "TH1.h"
+#include <cmath>
 #include <iostream>
 
 using namespace std;
@@ -31,7 +32,7 @@ int main(int argc, char **argv)
 {
 	//TODO: Add probability weights switch
 	
-	bool weighting = true;
+	bool weighting = false;
 	TRandom2 *randGen;
 	TDatime time;
 	TH1D* cum_distr;
@@ -62,6 +63,8 @@ int main(int argc, char **argv)
 	if(weighting)
 	{
 		//First step: fill cumulative distribution
+		cout << "Calculating weight" << endl;
+
 		for(Int_t i=0; i<Nentries; i++)
 		{
 			eventtree->GetEntry(i);
@@ -118,10 +121,12 @@ int main(int argc, char **argv)
 		for(UInt_t j=part_iter; j<(part_iter+event.entries); j++)
 		{
 			ptree->GetEntry(j);
-			if(particle.pid>0)
-				particletree.AddParticle(1,0,0,particle.px,particle.py,particle.pz,0,0,0,0,0,0,0,0,particle.mass);
-			else if(particle.pid<0)
-				particletree.AddParticle(-1,0,0,particle.px,particle.py,particle.pz,0,0,0,0,0,0,0,0,particle.mass);
+			if((particle.pid == 111) || (abs(particle.pid) == 311) || (abs(particle.pid) == 2112) || (abs(particle.pid) == 3122))
+				particletree.AddParticle(particle.pid, 0, particle.px, particle.py, particle.pz, particle.mass);
+			else if(particle.pid > 0)
+				particletree.AddParticle(particle.pid, 1, particle.px, particle.py, particle.pz, particle.mass);
+			else if(particle.pid < 0)
+				particletree.AddParticle(particle.pid, -1, particle.px, particle.py, particle.pz, particle.mass);
 		}
 		part_iter += event.entries;
 
